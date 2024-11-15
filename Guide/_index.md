@@ -2,12 +2,11 @@
 
 ## Goals
 
-The purpose of this workshop is to train Microsoft employees who are working in the field with the Azure Arc-enabled server concepts, features, value proposition, and do hands on training to help customers deploy Azure Arc-enabled servers.
+The purpose of this workshop is to help people learn Azure Arc-enabled server concepts, features, value proposition, and do hands on training to help customers deploy Azure Arc-enabled servers.
 
 After completion of this workshop, you will be able to:
 
 - Understand pre-requisites to onboard Windows and Linux servers to Azure Arc
-- Enroll your Windows Server 2012/R2 or SQL Server 2012 machines for Extended Security Updates through Azure Arc
 - Onboard Windows and Linux servers running using different onboarding methods
 - Monitor your Azure Arc-enabled servers using Azure Monitor
 - Secure your Azure Arc-enabled servers using Microsoft Defender for servers
@@ -21,57 +20,26 @@ After completion of this workshop, you will be able to:
 - Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center (Preview)
 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph
 - Enforce governance across your Azure Arc-enabled servers using Azure Policy
+- Enroll your Windows Server 2012/R2 or SQL Server 2012 machines for Extended Security Updates through Azure Arc
 
 | LevelUp Module | Duration | Facilitator |
 |---------------|---------------|---------------|
-|[**Understand pre-requisites to onboard Windows and Linux servers to Azure Arc**](#levelup-lab-environment) | 40 minutes | Seif Bassem |
-|**Enroll your Windows Server 2012/R2 or SQL Server 2012 machines for Extended Security Updates through Azure Arc (demo)** | 15 minutes | Alexander Ortha/Aurnov Chattopadhyay|
-|[**1 - Onboard Windows and Linux servers running using different onboarding methods**](#module-1-on-boarding-to-azure-arc-enabled-servers) | 15 minutes | Basim Majeed |
-|[**2 - Monitor your Azure Arc-enabled servers using Azure Monitor**](#module-2-monitor-your-azure-arc-enabled-servers-using-azure-monitor) | 45 minutes | Basim Majeed |
-|[**3 - Secure your Azure Arc-enabled servers using Microsoft Defender for servers**](#module-3-secure-your-azure-arc-enabled-servers-using-microsoft-defender-for-servers) | 15 minutes | Seif Bassem |
-|[**4 - Gain security insights from your Arc-enabled servers using Microsoft Sentinel**](#module-4--gain-security-insights-from-your-arc-enabled-servers-using-microsoft-sentinel) | 15 minutes | Seif Bassem |
-|[**5 - Keep your Azure Arc-enabled servers patched using Azure Update Manager**](#module-5-keep-your-azure-arc-enabled-servers-patched-using-azure-manager) | 15 minutes | Lloyd Lim |
-|[**6 - Monitor changes to your Azure Arc-enabled servers using Change tracking and inventory**](#module-6-monitor-changes-to-your-azure-arc-enabled-servers-using-change-tracking-and-inventory) | 15 minutes | Lloyd Lim |
-|[**7 - SSH into your Azure Arc-enabled servers using SSH access**](#module-7-ssh-into-your-azure-arc-enabled-servers-using-ssh-access) | 10 minutes | Jan Egil Ring |
-|**Run scripts in your Arc-enabled Windows server by using Run Commands (demo)** | 5 minutes | Jan Egil Ring |
-|[**8 - Run automation runbooks on your Azure Arc-enabled servers using Hybrid runbook workers**](#module-8-run-automation-runbooks-on-your-azure-arc-enabled-servers-using-hybrid-runbook-workers) | 15 minutes | Jan Egil Ring |
-|[**9 - Configure your Azure Arc-enabled servers using Azure Automanage machine configuration**](#module-9-configure-your-azure-arc-enabled-servers-using-azure-automanage-machine-configuration) | 30 minutes | Jan Egil Ring |
-|[**10 - Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center (Preview)**](#module-10-manage-your-azure-arc-enabled-servers-using-admin-center-preview) | 15 minutes | Basim Majeed |
-|[**11 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph**](#module-11-query-and-inventory-your-azure-arc-enabled-servers-using-azure-resource-graph) | 15 minutes | Basim Majeed |
-|[**12 - Enforce governance across your Azure Arc-enabled servers using Azure Policy**](#module-12-enforce-governance-across-your-azure-arc-enabled-servers-using-azure-policy) | 15 minutes | Basim Majeed |
-|[**13 - Enroll your Windows Server 2012/R2 machines for Extended Security Updates with Azure Arc**](#module-13-enroll-your-windows-server-2012R2-machines-for-extended-security-updates-with-azure-arc) | 30 minutes | Yasuhiro Handa |
+|[**Understand pre-requisites to onboard Windows and Linux servers to Azure Arc**](#levelup-lab-environment) | 40 minutes |  |
+|[**1 - Onboard Windows and Linux servers running using different onboarding methods**](#module-1-on-boarding-to-azure-arc-enabled-servers) | 15 minutes |  |
+|[**2 - Monitor your Azure Arc-enabled servers using Azure Monitor**](#module-2-monitor-your-azure-arc-enabled-servers-using-azure-monitor) | 45 minutes |  |
+|[**3 - Secure your Azure Arc-enabled servers using Microsoft Defender for servers**](#module-3-secure-your-azure-arc-enabled-servers-using-microsoft-defender-for-servers) | 15 minutes |  |
+|[**4 - Gain security insights from your Arc-enabled servers using Microsoft Sentinel**](#module-4--gain-security-insights-from-your-arc-enabled-servers-using-microsoft-sentinel) | 15 minutes |  |
+|[**5 - Keep your Azure Arc-enabled servers patched using Azure Update Manager**](#module-5-keep-your-azure-arc-enabled-servers-patched-using-azure-manager) | 15 minutes |  |
+|[**6 - Monitor changes to your Azure Arc-enabled servers using Change tracking and inventory**](#module-6-monitor-changes-to-your-azure-arc-enabled-servers-using-change-tracking-and-inventory) | 15 minutes |  |
+|[**7 - SSH into your Azure Arc-enabled servers using SSH access**](#module-7-ssh-into-your-azure-arc-enabled-servers-using-ssh-access) | 10 minutes |  |
+|**Run scripts in your Arc-enabled Windows server by using Run Commands (demo)** | 5 minutes |  |
+|[**8 - Run automation runbooks on your Azure Arc-enabled servers using Hybrid runbook workers**](#module-8-run-automation-runbooks-on-your-azure-arc-enabled-servers-using-hybrid-runbook-workers) | 15 minutes |  |
+|[**9 - Configure your Azure Arc-enabled servers using Azure Automanage machine configuration**](#module-9-configure-your-azure-arc-enabled-servers-using-azure-automanage-machine-configuration) | 30 minutes |  |
+|[**10 - Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center (Preview)**](#module-10-manage-your-azure-arc-enabled-servers-using-admin-center-preview) | 15 minutes |  |
+|[**11 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph**](#module-11-query-and-inventory-your-azure-arc-enabled-servers-using-azure-resource-graph) | 15 minutes |  |
+|[**12 - Enforce governance across your Azure Arc-enabled servers using Azure Policy**](#module-12-enforce-governance-across-your-azure-arc-enabled-servers-using-azure-policy) | 15 minutes |  |
+|[**13 - Enroll your Windows Server 2012/R2 machines for Extended Security Updates with Azure Arc**](#module-13-enroll-your-windows-server-2012R2-machines-for-extended-security-updates-with-azure-arc) | 30 minutes |  |
 
-## LevelUp lab guidance
-
-There are two ways to get access to the lab modules and guidance.
-
-1. You can use this GitHub repository.
-2. You can download the LevelUp Notebook which is an interactive guide that you can open using VSCode to walk you through each module of this levelup.
-
-To download the notebook, please run the following commands from a Powershell or Windows Terminal window to [install VScode](https://code.visualstudio.com/download) if not already installed, [install Dot Net SDK 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0), install the [notebook extension to VSCode](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode) and the PowerSehll [extension](https://code.visualstudio.com/docs/languages/powershell):
-
-```shell
-winget install -e --id Microsoft.VisualStudioCode --no-upgrade
-winget install -e --id Microsoft.DotNet.SDK.8 --no-upgrade
-code --install-extension ms-dotnettools.dotnet-interactive-vscode
-code --install-extension ms-vscode.powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Azure/arc_jumpstart_levelup/main/docs/azure_arc_servers_jumpstart/AzureArcLevelupNotebook.dib" -OutFile ./AzureArcLevelupNotebook.dib
-code ./AzureArcLevelupNotebook.dib
-```
-
-> **NOTE: If you didn't have Visual Studio Code installed, you will have to reload your session to make sure you can run the commands to install the extensions**
-
->**NOTE: The notebook can be also downloaded from [here](https://github.com/azure/arc_jumpstart_levelup/blob/main/docs/azure_arc_servers_jumpstart/AzureArcLevelupNotebook.dib) manually**
-
-- VSCode will open in restricted mode. To trust this file, click "Manage".
-
-    ![Screenshot showing vscode in restricted mode](./vscode_restricted_mode.png)
-
-- Click on "Trust".
-
-    ![Screenshot showing vscode in restricted mode](./vscode_restricted_mode_trust.png)
-
-- The notebook now is ready to be used.
 
 ## LevelUp Lab Environment
 
@@ -82,203 +50,9 @@ ties in a sandbox environment. Screenshot below shows layout of the lab environm
 
 ### Prerequisites
 
-- [Install or update Azure CLI to version 2.51.0 and above](https://docs.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+To complete this laby you require a browser and internet access. It is recommended to use InPrivate / Incognito mode to avoid accidently using your existing work/personal credentials.
 
-  ```shell
-  az --version
-  ```
-
-    ![Screenshot showing azure cli version](./azcli_version.png)
-
-- Login to AZ CLI using the ```az login``` command.
-
-  ```shell
-  az login
-  ```
-
-- [Install or update Azure PowerShell](https://learn.microsoft.com/powershell/azure/install-azps-windows). Use the below command to check if its installed.
-
-  ```shell
-  Get-Module -Name Az.Accounts -listavailable
-  ```
-
-- Login to Azure PowerShell the ```Connect-AzAccount``` command.
-
-  ```shell
-  Connect-AzAccount
-  ```
-
-- Set the default subscription using Azure CLI.
-
-  ```shell
-  $subscriptionId = "<Subscription Id>"
-  az account set -s $subscriptionId
-  ```
-
-- Set the default subscription using Azure PowerShell.
-
-  ```shell
-  $subscriptionId = "<Subscription Id>"
-  Set-AzContext -SubscriptionId $subscriptionId
-  ```
-
-- Ensure that you have selected the correct subscription you want to deploy ArcBox to by using the ```az account list --query "[?isDefault]"``` command. If you need to adjust the active subscription used by Az CLI, follow [this guidance](https://docs.microsoft.com/cli/azure/manage-azure-subscriptions-azure-cli#change-the-active-subscription).
-
-- ArcBox must be deployed to one of the following regions. **Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.**
-
-  - East US
-  - East US 2
-  - Central US
-  - West US 2
-  - North Europe
-  - West Europe
-  - France Central
-  - UK South
-  - Australia East
-  - Japan East
-  - Korea Central
-  - Southeast Asia
-
-- **ArcBox requires 16 DSv4-series vCPUs** when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
-
-  ```shell
-  az vm list-usage --location <your location> --output table
-  ```
-
-  ![Screenshot showing az vm list-usage](./azvmlistusage.png)
-
-- Register necessary Azure resource providers by running the following commands.
-
-  ```shell
-  az provider register --namespace Microsoft.HybridCompute --wait
-  az provider register --namespace Microsoft.GuestConfiguration --wait
-  az provider register --namespace Microsoft.AzureArcData --wait
-  az provider register --namespace Microsoft.OperationsManagement --wait
-  az provider register --namespace Microsoft.SecurityInsights --wait
-  ```
-
-- Create Azure service principal (SP). To deploy ArcBox, an Azure service principal assigned with the _Owner_ Role-based access control (RBAC) role is required. You can use Azure Cloud Shell (or other Bash shell), or PowerShell to create the service principal.
-
-  - (Option 1) Create service principal using [Azure Cloud Shell](https://shell.azure.com/) or Bash shell with Azure CLI:
-
-    ```shell
-    subscriptionId="<Your Subscription Id>"
-    servicePrincipalName="<Unique Service principal name>"
-
-    az account set -s $subscriptionId
-    az ad sp create-for-rbac -n $servicePrincipalName --role "Owner" --scopes /subscriptions/$subscriptionId
-    ```
-
-    For example:
-
-    ```shell
-    subscriptionId="98471a83-9151-489e-uub1-463447bed604"
-    servicePrincipalName="JumpstartArcBoxSPN"
-
-    az account set -s $subscriptionId
-    az ad sp create-for-rbac -n $servicePrincipalName --role "Owner" --scopes /subscriptions/$subscriptionId
-    ```
-
-    Output should look similar to this:
-
-    ```json
-    {
-    "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "displayName": "JumpstartArcBoxSPN",
-    "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    }
-    ```
-
-  - (Option 2) Create service principal using PowerShell. If necessary, follow [this documentation](https://learn.microsoft.com/powershell/azure/install-az-ps?view=azps-8.3.0) to install Azure PowerShell modules.
-
-    ```PowerShell
-    $account = Connect-AzAccount
-    $subscriptionId = "<Your Subscription Id>"
-    $servicePrincipalName = "<Unique Service principal name>"
-
-    Set-AzContext -SubscriptionId $subscriptionId
-    $spn = New-AzADServicePrincipal -DisplayName $servicePrincipalName -Role "Owner" -Scope "/subscriptions/$subscriptionId"
-    echo "SPN App id: $($spn.AppId)"
-    echo "SPN secret: $($spn.PasswordCredentials.SecretText)"
-    ```
-
-    For example:
-
-    ```PowerShell
-    $account = Connect-AzAccount
-    $subscriptionId = "98471a83-9151-489e-uub1-463447bed604"
-    $servicePrincipalName = "JumpstartArcBoxSPN"
-
-    Set-AzContext -SubscriptionId $subscriptionId
-    $spn = New-AzADServicePrincipal -DisplayName $servicePrincipalName -Role "Owner" -Scope "/subscriptions/$subscriptionId"
-    echo "SPN App id: $($spn.AppId)"
-    echo "SPN secret: $($spn.PasswordCredentials.SecretText)"
-    ```
-
-    Output should look similar to this:
-
-    ![Screenshot showing creating an SPN with PowerShell](./create_spn_powershell.png)
-
-    > **NOTE: If you create multiple subsequent role assignments on the same service principal, your client secret (password) will be destroyed and recreated each time. Therefore, make sure you grab the correct password.**
-
-    > **NOTE: The Jumpstart scenarios are designed with as much ease of use in-mind and adhering to security-related best practices whenever possible. It is optional but highly recommended to scope the service principal to a specific [Azure subscription and resource group](https://docs.microsoft.com/cli/azure/ad/sp?view=azure-cli-latest) as well considering using a [less privileged service principal account](https://docs.microsoft.com/azure/role-based-access-control/best-practices)**
-
-### Deployment
-
-#### Deployment Option 1: Azure portal
-
-- Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Farc_jumpstart_levelup%2Fmain%2Fazure_arc_servers_jumpstart%2FARM%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
-
-  ![Screenshot showing Azure portal deployment of ArcBox](./portaldeploy.png)
-
-  ![Screenshot showing Azure portal deployment of ArcBox](./portaldeployinprogress.png)
-
-  ![Screenshot showing Azure portal deployment of ArcBox](./portaldeploymentcomplete.png)
-
-    > **NOTE: The deployment takes around 20 minutes to complete.**
-
-    > **NOTE: If you see any failure in the deployment, please check the [troubleshooting guide](https://azurearcjumpstart.io/azure_jumpstart_arcbox/itpro/#basic-troubleshooting).**
-
-### Deployment Option 2: Bicep deployment via Azure CLI
-
-- Clone the Azure Arc Jumpstart repository
-
-  ```shell
-  $folderPath = <Specify a folder path to clone the repo>
-
-  Set-Location -Path $folderPath
-  git clone https://github.com/azure/arc_jumpstart_levelup.git
-  Set-Location -Path "azure_arc\azure_jumpstart_arcbox_servers_levelup\bicep"
-  ```
-
-- Upgrade to latest Bicep version
-
-  ```shell
-  az bicep upgrade
-  ```
-
-- Edit the [main.parameters.json](https://github.com/Azure/arc_jumpstart_levelup/blob/main/azure_arc_servers_jumpstart/bicep/main.parameters.json) template parameters file and supply some values for your environment.
-  - _`spnClientId`_ - Your Azure service principal id
-  - _`spnClientSecret`_ - Your Azure service principal secret
-  - _`spnTenantId`_ - Your Azure tenant id
-  - _`windowsAdminUsername`_ - Client Windows VM Administrator name
-  - _`windowsAdminPassword`_ - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
-  - _`logAnalyticsWorkspaceName`_ - Unique name for the ArcBox Log Analytics workspace
-  - _`emailAddress`_ - Your email address, to configure alerts for the monitoring action group
-
-  ![Screenshot showing example parameters](./parameters_bicep.png)
-
-- Now you will deploy the Bicep file. Navigate to the local cloned [deployment folder](https://github.com/Azure/arc_jumpstart_levelup/blob/main/azure_arc_servers_jumpstart/bicep) and run the below command:
-
-  ```shell
-  az group create --name "<resource-group-name>" --location "<preferred-location>"
-  az deployment group create -g "<resource-group-name>" -f "main.bicep" -p "main.parameters.json"
-  ```
-
-    > **NOTE: If you see any failure in the deployment, please check the [troubleshooting guide](https://azurearcjumpstart.io/azure_jumpstart_arcbox/itpro/#basic-troubleshooting).**
-
-    > **NOTE: The deployment takes around 20 minutes to complete.**
+The initial Azure resources required to complete this lab have already been deployed in your allocated Azure resource group.
 
 ### Connecting to the ArcBox Client virtual machine
 
