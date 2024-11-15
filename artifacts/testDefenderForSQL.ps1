@@ -1,4 +1,4 @@
-# Execute sql commands to generate defender for cloud alerts
+﻿# Execute sql commands to generate defender for cloud alerts
 param (
     [string]$workingDir = "C:\ArcBox"
 )

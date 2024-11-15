@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "spnTenantId": {
+            "value": "<your spn tenant id>"
+        },
+        "windowsAdminUsername": {
+            "value": "arcdemo"
+        },
+        "windowsAdminPassword": {
+            "value": "<your windows admin password>"
+        },
+        "clientVmSku": {
+            "value": "<Choose the VM SKU for the client VM>" 
+        },
+        "logAnalyticsWorkspaceName": {
+            "value": "<your unique Log Analytics workspace name>"
+        },
+        "emailAddress": {
+            "value": "<Your email address for alerts>"
+        }
+    }
+}

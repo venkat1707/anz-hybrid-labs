@@ -1,12 +1,14 @@
  # Download the package
  param (
     [string]$accessToken,
-    [string]$tenantId,
+    [string]$spnTenantId,
     [string]$subscriptionId,
     [string]$resourceGroup,
     [string]$Azurelocation
 )
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls, [Net.SecurityProtocolType]::Tls11, [Net.SecurityProtocolType]::Tls12, [Net.SecurityProtocolType]::Ssl3
+[Net.ServicePointManager]::SecurityProtocol = "Tls, Tls11, Tls12, Ssl3"
  function download() {$ProgressPreference="SilentlyContinue"; Invoke-WebRequest -Uri https://aka.ms/AzureConnectedMachineAgent -OutFile AzureConnectedMachineAgent.msi}
  download
 
@@ -21,10 +23,11 @@
  & "$Env:ProgramW6432\AzureConnectedMachineAgent\azcmagent.exe" connect `
  --access-token $accessToken `
  --resource-group $resourceGroup `
- --tenant-id $tenantId `
+ --tenant-id $spnTenantId `
  --location $Azurelocation `
  --subscription-id $subscriptionId `
  --cloud "AzureCloud" `
- --correlation-id "d009f5dd-dba8-4ac7-bac9-b54ef3a6671a" # Do no change!
+ --tags "Project=jumpstart_arcbox" `
+ --correlation-id "d009f5dd-dba8-4ac7-bac9-b54ef3a6671a" # Do not change!
 
  if($LastExitCode -eq 0){Write-Host -ForegroundColor yellow "To view your onboarded server(s), navigate to https://ms.portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.HybridCompute%2Fmachines"}

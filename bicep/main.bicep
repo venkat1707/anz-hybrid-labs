@@ -1,5 +1,15 @@
-@description('Your Microsoft Entra tenant Id')
-param tenantId string = tenant().tenantId
+@description('Azure AD tenant id for your service principal')
+//param spnTenantId string
+param spnTenantId string = tenant().tenantId
+
+@description('Client Machine SKU')
+@allowed([
+  'Standard_E8s_v5'
+  'Standard_E8s_v4'
+  'Standard_E8s_v3'
+])
+param clientVmSku string
+
 
 @description('Username for Windows account')
 param windowsAdminUsername string
@@ -10,33 +20,17 @@ param windowsAdminUsername string
 @secure()
 param windowsAdminPassword string
 
+@allowed([
+  true
+])
 @description('Enable automatic logon into ArcBox Virtual Machine')
 param vmAutologon bool = true
-
-@description('Override default RDP port using this parameter. Default is 3389. No changes will be made to the client VM.')
-param rdpPort string = '3389'
 
 @description('Name for your log analytics workspace')
 param logAnalyticsWorkspaceName string
 
-@description('The flavor of ArcBox you want to deploy. Valid values are: \'Full\', \'ITPro\', \'DevOps\', \'DataOps\'')
-@allowed([
-  'ITPro'
-  'DevOps'
-  'DataOps'
-])
-param flavor string = 'ITPro'
-
-@description('SQL Server edition to deploy. Valid values are: \'Developer\', \'Standard\', \'Enterprise\'')
-@allowed([
-  'Developer'
-  'Standard'
-  'Enterprise'
-])
-param sqlServerEdition string = 'Developer'
-
 @description('Target GitHub account')
-param githubAccount string = 'microsoft'
+param githubAccount string = 'Azure'
 
 @description('Target GitHub branch')
 param githubBranch string = 'main'
@@ -44,83 +38,41 @@ param githubBranch string = 'main'
 @description('Choice to deploy Bastion to connect to the client VM')
 param deployBastion bool = false
 
-@description('Bastion host Sku name. The Developer SKU is currently supported in a limited number of regions: https://learn.microsoft.com/azure/bastion/quickstart-developer-sku')
-@allowed([
-  'Basic'
-  'Standard'
-  'Developer'
-])
-param bastionSku string = 'Basic'
-
 @description('User github account where they have forked https://github.com/microsoft/azure-arc-jumpstart-apps')
 param githubUser string = 'microsoft'
 
-@description('Active directory domain services domain name')
-param addsDomainName string = 'jumpstart.local'
+@description('Override default RDP port 3389 using this parameter. Default is 3389. No changes will be made to the client VM.')
+param rdpPort string = '3389'
 
-@description('Random GUID for cluster names')
-param guid string = substring(newGuid(),0,4)
+@description('Override default SSH port 22 using this parameter. Default is 22. No changes will be made to the client VM.')
+param sshPort string = '22'
 
-@description('Azure location to deploy all resources')
+@description('Your email address to configure alerts.')
+param emailAddress string
+
 param location string = resourceGroup().location
 
-@description('The custom location RPO ID. This parameter is only needed when deploying the DataOps flavor.')
-param customLocationRPOID string = newGuid()
-
-@description('Use this parameter to enable or disable debug mode for the automation scripts on the client VM, effectively configuring PowerShell ErrorActionPreference to Break. Intended for use when troubleshooting automation scripts. Default is false.')
-param debugEnabled bool = false
-
-@description('Tags to assign for all ArcBox resources')
-param resourceTags object = {
-  Solution: 'jumpstart_arcbox'
-}
-
-@maxLength(7)
-@description('The naming prefix for the nested virtual machines and all Azure resources deployed. The maximum length for the naming prefix is 7 characters,example: `ArcBox-Win2k19`')
-param namingPrefix string = 'ArcBox'
-
-param autoShutdownEnabled bool = false
-param autoShutdownTime string = '1800' // The time for auto-shutdown in HHmm format (24-hour clock)
-param autoShutdownTimezone string = 'UTC' // Timezone for the auto-shutdown
-param autoShutdownEmailRecipient string = ''
-
-var templateBaseUrl = 'https://raw.githubusercontent.com/${githubAccount}/azure_arc/${githubBranch}/azure_jumpstart_arcbox/'
-var aksArcDataClusterName = '${namingPrefix}-AKS-Data-${guid}'
-var aksDrArcDataClusterName = '${namingPrefix}-AKS-DR-Data-${guid}'
-var k3sArcDataClusterName = '${namingPrefix}-K3s-Data-${guid}'
-var k3sArcClusterName = '${namingPrefix}-K3s-${guid}'
+var templateBaseUrl = 'https://raw.githubusercontent.com/${githubAccount}/arc_jumpstart_levelup/${githubBranch}/azure_arc_servers_jumpstart/'
 
 module clientVmDeployment 'clientVm/clientVm.bicep' = {
   name: 'clientVmDeployment'
   params: {
     windowsAdminUsername: windowsAdminUsername
     windowsAdminPassword: windowsAdminPassword
-    azdataPassword: windowsAdminPassword
-    tenantId: tenantId
+    spnTenantId: spnTenantId
     workspaceName: logAnalyticsWorkspaceName
-    stagingStorageAccountName: toLower(stagingStorageAccountDeployment.outputs.storageAccountName)
+    stagingStorageAccountName: stagingStorageAccountDeployment.outputs.storageAccountName
     templateBaseUrl: templateBaseUrl
-    flavor: flavor
     subnetId: mgmtArtifactsAndPolicyDeployment.outputs.subnetId
     deployBastion: deployBastion
-    githubBranch: githubBranch
     githubUser: githubUser
     location: location
-    k3sArcDataClusterName : k3sArcDataClusterName
-    k3sArcClusterName : k3sArcClusterName
-    aksArcClusterName : aksArcDataClusterName
-    aksdrArcClusterName : aksDrArcDataClusterName
-    vmAutologon: vmAutologon
     rdpPort: rdpPort
-    addsDomainName: addsDomainName
-    customLocationRPOID: customLocationRPOID
-    namingPrefix: namingPrefix
-    debugEnabled: debugEnabled
-    autoShutdownEnabled: autoShutdownEnabled
-    autoShutdownTime: autoShutdownTime
-    autoShutdownTimezone: autoShutdownTimezone
-    autoShutdownEmailRecipient: empty(autoShutdownEmailRecipient) ? null : autoShutdownEmailRecipient
-    sqlServerEdition: sqlServerEdition
+    sshPort: sshPort
+    vmAutologon: vmAutologon
+    changeTrackingDCR: dataCollectionRules.outputs.changeTrackingDCR
+    vmInsightsDCR: dataCollectionRules.outputs.vmInsightsDCR
+    clientVmSku: clientVmSku
   }
 }
 
@@ -128,7 +80,6 @@ module stagingStorageAccountDeployment 'mgmt/mgmtStagingStorage.bicep' = {
   name: 'stagingStorageAccountDeployment'
   params: {
     location: location
-    namingPrefix: namingPrefix
   }
 }
 
@@ -136,27 +87,38 @@ module mgmtArtifactsAndPolicyDeployment 'mgmt/mgmtArtifacts.bicep' = {
   name: 'mgmtArtifactsAndPolicyDeployment'
   params: {
     workspaceName: logAnalyticsWorkspaceName
-    flavor: flavor
     deployBastion: deployBastion
-    bastionSku: bastionSku
     location: location
-    resourceTags: resourceTags
-    namingPrefix: namingPrefix
   }
 }
 
-module addsVmDeployment 'mgmt/addsVm.bicep' = if (flavor == 'DataOps'){
-  name: 'addsVmDeployment'
+module monitoringResources 'mgmt/monitoringResources.bicep' = {
+  name: 'monitoringResources'
   params: {
-    windowsAdminUsername : windowsAdminUsername
-    windowsAdminPassword : windowsAdminPassword
-    addsDomainName: addsDomainName
-    deployBastion: deployBastion
-    templateBaseUrl: templateBaseUrl
-    azureLocation: location
-    namingPrefix: namingPrefix
+    workspaceId: mgmtArtifactsAndPolicyDeployment.outputs.workspaceId
+    workspaceName: logAnalyticsWorkspaceName
+    location: location
+    emailAddress: emailAddress
   }
-  dependsOn:[
+}
+
+module policyDeployment 'mgmt/policyAzureArc.bicep' = {
+  name: 'policyDeployment'
+  dependsOn: [
     mgmtArtifactsAndPolicyDeployment
   ]
+  params: {
+    azureLocation: location
+    changeTrackingDCR: dataCollectionRules.outputs.changeTrackingDCR
+    //logAnalyticsWorkspaceId: workspace.id
+  }
+}
+
+module dataCollectionRules 'mgmt/mgmtDataCollectionRules.bicep' = {
+  name: 'dataCollectionRules'
+  params: {
+    workspaceLocation: location
+    workspaceName: logAnalyticsWorkspaceName
+    workspaceResourceId: mgmtArtifactsAndPolicyDeployment.outputs.workspaceId
+  }
 }

@@ -1,31 +1,11 @@
 @description('Name of the VNet')
-param virtualNetworkName string = '${namingPrefix}-VNet'
+param virtualNetworkName string = 'ArcBox-VNet'
 
 @description('Name of the subnet in the virtual network')
-param subnetName string = '${namingPrefix}-Subnet'
-
-@description('Name of the subnet in the virtual network')
-param aksSubnetName string = '${namingPrefix}-AKS-Subnet'
-
-@description('Name of the Domain Controller subnet in the virtual network')
-param dcSubnetName string = '${namingPrefix}-DC-Subnet'
-
-@description('Name of the DR VNet')
-param drVirtualNetworkName string = '${namingPrefix}-DR-VNet'
-
-@description('Name of the DR subnet in the DR virtual network')
-param drSubnetName string = '${namingPrefix}-DR-Subnet'
+param subnetName string = 'ArcBox-Subnet'
 
 @description('Name for your log analytics workspace')
 param workspaceName string
-
-@description('The flavor of ArcBox you want to deploy. Valid values are: \'Full\', \'ITPro\'')
-@allowed([
-  'ITPro'
-  'DevOps'
-  'DataOps'
-])
-param flavor string
 
 @description('Azure Region to deploy the Log Analytics Workspace')
 param location string = resourceGroup().location
@@ -36,33 +16,11 @@ param sku string = 'pergb2018'
 @description('Choice to deploy Bastion to connect to the client VM')
 param deployBastion bool = false
 
-@description('Bastion host Sku name')
-@allowed([
-  'Basic'
-  'Standard'
-  'Developer'
-])
-param bastionSku string = 'Basic'
-
 @description('Name of the Network Security Group')
-param networkSecurityGroupName string = '${namingPrefix}-NSG'
+param networkSecurityGroupName string = 'ArcBox-NSG'
 
 @description('Name of the Bastion Network Security Group')
-param bastionNetworkSecurityGroupName string = '${namingPrefix}-Bastion-NSG'
-
-@description('DNS Server configuration')
-param dnsServers array = []
-
-@description('Tags to assign for all ArcBox resources')
-param resourceTags object = {
-  Solution: 'jumpstart_arcbox'
-}
-
-@maxLength(7)
-@description('The naming prefix for the nested virtual machines. Example: ArcBox-Win2k19')
-param namingPrefix string = 'ArcBox'
-
-var keyVaultName = toLower('${namingPrefix}${uniqueString(resourceGroup().id)}')
+param bastionNetworkSecurityGroupName string = 'ArcBox-Bastion-NSG'
 
 var security = {
   name: 'Security(${workspaceName})'
@@ -71,13 +29,9 @@ var security = {
 
 var subnetAddressPrefix = '10.16.1.0/24'
 var addressPrefix = '10.16.0.0/16'
-var aksSubnetPrefix = '10.16.76.0/22'
-var dcSubnetPrefix = '10.16.2.0/24'
-var drAddressPrefix = '172.16.0.0/16'
-var drSubnetPrefix = '172.16.128.0/17'
 var bastionSubnetName = 'AzureBastionSubnet'
 var bastionSubnetRef = '${arcVirtualNetwork.id}/subnets/${bastionSubnetName}'
-var bastionName = '${namingPrefix}-Bastion'
+var bastionName = 'ArcBox-Bastion'
 var bastionSubnetIpPrefix = '10.16.3.64/26'
 var bastionPublicIpAddressName = '${bastionName}-PIP'
 var primarySubnet = [
@@ -93,7 +47,7 @@ var primarySubnet = [
     }
   }
 ]
-var bastionSubnet = bastionSku != 'Developer' ? [
+var bastionSubnet = [
   {
     name: 'AzureBastionSubnet'
     properties: {
@@ -103,236 +57,29 @@ var bastionSubnet = bastionSku != 'Developer' ? [
       }
     }
   }
-] : []
-var dataOpsSubnets = [
-  {
-    name: aksSubnetName
-    properties: {
-      addressPrefix: aksSubnetPrefix
-      privateEndpointNetworkPolicies: 'Enabled'
-      privateLinkServiceNetworkPolicies: 'Enabled'
-      networkSecurityGroup: {
-        id: networkSecurityGroup.id
-      }
-    }
-  }
-  {
-    name: dcSubnetName
-    properties: {
-      addressPrefix: dcSubnetPrefix
-      privateEndpointNetworkPolicies: 'Enabled'
-      privateLinkServiceNetworkPolicies: 'Enabled'
-      networkSecurityGroup: {
-        id: networkSecurityGroup.id
-      }
-    }
-  }
 ]
 
 resource arcVirtualNetwork 'Microsoft.Network/virtualNetworks@2022-01-01' = {
   name: virtualNetworkName
   location: location
-  dependsOn: [
-    policyDeployment
-  ]
   properties: {
     addressSpace: {
       addressPrefixes: [
         addressPrefix
       ]
     }
-    dhcpOptions: {
-      dnsServers: dnsServers
-    }
-    subnets: (deployBastion == false && flavor != 'DataOps') ? primarySubnet : (deployBastion == false && flavor == 'DataOps') ? union(primarySubnet,dataOpsSubnets) : (deployBastion == true && flavor != 'DataOps') ? union(primarySubnet,bastionSubnet) : (deployBastion == true && flavor == 'DataOps') ? union(primarySubnet,bastionSubnet,dataOpsSubnets) : primarySubnet
-  }
-}
-
-resource drVirtualNetwork 'Microsoft.Network/virtualNetworks@2022-01-01' = if (flavor == 'DataOps') {
-  name: drVirtualNetworkName
-  location: location
-  dependsOn: [
-    policyDeployment
-  ]
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        drAddressPrefix
-      ]
-    }
-    dhcpOptions: {
-      dnsServers: dnsServers
-    }
-    subnets: [
-      {
-        name: drSubnetName
-        properties: {
-          addressPrefix: drSubnetPrefix
-          networkSecurityGroup: {
-            id: networkSecurityGroup.id
-          }
-        }
-      }
-    ]
-  }
-}
-
-resource virtualNetworkName_peering_to_DR_vnet 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-01-01' = if (flavor == 'DataOps') {
-  parent: arcVirtualNetwork
-  name: 'peering-to-DR-vnet'
-  dependsOn: [
-    policyDeployment
-  ]
-  properties: {
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: false
-    useRemoteGateways: false
-    remoteVirtualNetwork: {
-      id: drVirtualNetwork.id
-    }
-  }
-}
-
-resource drVirtualNetworkName_peering_to_primary_vnet 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2022-01-01' = if (flavor == 'DataOps') {
-  parent: drVirtualNetwork
-  name: 'peering-to-primary-vnet'
-  dependsOn: [
-    policyDeployment
-  ]
-  properties: {
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: false
-    useRemoteGateways: false
-    remoteVirtualNetwork: {
-      id: arcVirtualNetwork.id
-    }
+    subnets: (deployBastion == false) ? primarySubnet : union(primarySubnet,bastionSubnet)
   }
 }
 
 resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
   name: networkSecurityGroupName
   location: location
-  dependsOn: [
-    policyDeployment
-  ]
-  properties: {
-    securityRules: [
-      {
-        name: 'allow_k8s_80'
-        properties: {
-          priority: 1003
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '80'
-        }
-      }
-      {
-        name: 'allow_k8s_8080'
-        properties: {
-          priority: 1004
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '8080'
-        }
-      }
-      {
-        name: 'allow_k8s_443'
-        properties: {
-          priority: 1005
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '443'
-        }
-      }
-      {
-        name: 'allow_k8s_kubelet'
-        properties: {
-          priority: 1006
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '10250'
-        }
-      }
-      {
-        name: 'allow_traefik_lb_external'
-        properties: {
-          priority: 1007
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '32323'
-        }
-      }
-      {
-        name: 'allow_SQLMI_traffic'
-        properties: {
-          priority: 1008
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '11433'
-        }
-      }
-      {
-        name: 'allow_Postgresql_traffic'
-        properties: {
-          priority: 1009
-          protocol: 'Tcp'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '15432'
-        }
-      }
-      {
-        name: 'allow_SQLMI_mirroring_traffic'
-        properties: {
-          priority: 1012
-          protocol: 'TCP'
-          access: 'Allow'
-          direction: 'Inbound'
-          sourceAddressPrefix: '*'
-          sourcePortRange: '*'
-          destinationAddressPrefix: '*'
-          destinationPortRange: '5022'
-        }
-      }
-    ]
-  }
 }
 
 resource bastionNetworkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2022-01-01' = if (deployBastion == true) {
   name: bastionNetworkSecurityGroupName
   location: location
-  dependsOn: [
-    policyDeployment
-  ]
   properties: {
     securityRules: [
       {
@@ -455,16 +202,20 @@ resource bastionNetworkSecurityGroup 'Microsoft.Network/networkSecurityGroups@20
   }
 }
 
-
 resource workspace 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   name: workspaceName
   location: location
-  tags: resourceTags
   properties: {
     sku: {
       name: sku
     }
   }
+}
+
+resource sentinel 'Microsoft.SecurityInsights/onboardingStates@2024-03-01' = {
+  name: 'default'
+  scope: workspace
+  properties: {}
 }
 
 resource securityGallery 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' = {
@@ -484,9 +235,6 @@ resource securityGallery 'Microsoft.OperationsManagement/solutions@2015-11-01-pr
 resource publicIpAddress 'Microsoft.Network/publicIPAddresses@2022-01-01' = if (deployBastion == true) {
   name: bastionPublicIpAddressName
   location: location
-  dependsOn: [
-    policyDeployment
-  ]
   properties: {
     publicIPAllocationMethod: 'Static'
     publicIPAddressVersion: 'IPv4'
@@ -497,20 +245,11 @@ resource publicIpAddress 'Microsoft.Network/publicIPAddresses@2022-01-01' = if (
   }
 }
 
-resource bastionHost 'Microsoft.Network/bastionHosts@2023-11-01' = if (deployBastion == true) {
+resource bastionHost 'Microsoft.Network/bastionHosts@2022-01-01' = if (deployBastion == true) {
   name: bastionName
   location: location
-  dependsOn: [
-    policyDeployment
-  ]
-  sku: {
-    name: bastionSku
-  }
   properties: {
-    virtualNetwork: bastionSku == 'Developer' ? {
-      id: arcVirtualNetwork.id
-    } : null
-    ipConfigurations: bastionSku != 'Developer' ? [
+    ipConfigurations: [
       {
         name: 'IpConf'
         properties: {
@@ -522,32 +261,10 @@ resource bastionHost 'Microsoft.Network/bastionHosts@2023-11-01' = if (deployBas
           }
         }
       }
-    ] : null
-  }
-}
-
-module policyDeployment './policyAzureArc.bicep' = {
-  name: 'policyDeployment'
-  params: {
-    azureLocation: location
-    logAnalyticsWorkspaceId: workspace.id
-    flavor: flavor
-    resourceTags: resourceTags
-  }
-}
-
-module keyVault 'br/public:avm/res/key-vault/vault:0.5.1' = {
-  name: 'keyVaultDeployment'
-  dependsOn: [
-    policyDeployment
-  ]
-  params: {
-    name: toLower(keyVaultName)
-    enablePurgeProtection: false
-    enableSoftDelete: false
-    location: location
+    ]
   }
 }
 
 output vnetId string = arcVirtualNetwork.id
 output subnetId string = arcVirtualNetwork.properties.subnets[0].id
+output workspaceId string = workspace.id
