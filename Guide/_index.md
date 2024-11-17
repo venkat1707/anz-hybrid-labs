@@ -107,7 +107,7 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
 #### The Logon scripts
 
-- When the lab environment was first created, multiple automated scripts were run to pre-configure the Hyper-V environment. These scripts usually take 10-20 minutes to finish, and once completed, the script windows will close automatically. These scripts should have finshed by the time to connect, however if you see the scripts running, please allow them time to complete. If the scripts are still running or you see any errors, please discuss with yout guide.
+- When the lab environment was first created, multiple automated scripts were run to pre-configure the Hyper-V environment. These scripts usually take 10-20 minutes to finish, and once completed, the script windows will close automatically. These scripts should have finshed by the time to connect, however if you see the scripts running, please allow them time to complete. If the scripts are still running or you see any errors, please discuss with your guide.
 
   ![Screenshot showing ArcBox-Client](./automation.png)
 
@@ -143,7 +143,9 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
 - We will onboard the Windows machine ArcBox-Win2K22 using the [Service Principal onboarding method](https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-service-principal).
 
-- Using the following Powershell commands (run the notebook cell to execute directly on your local machine) create a service principal and assign it the Azure Connected Machine Onboarding role for the selected subscription. After the service principal is created, it will print the application ID and secret (copy these somewhere safe for later use). Note :
+- We will use Azure Cloud Shell to run some Azure PowerShell commands. From the Azure Portal, select the Cloud Shell icon in the top right to open Cloud Shell. Select the PowerShell option (not Bash) to create the environment. 
+
+- Using the following Powershell commands create a service principal and assign it the Azure Connected Machine Onboarding role for the selected subscription. After the service principal is created, it will print the application ID and secret (copy these somewhere safe for later use). Note :
 
   ```powershell
   $sp = New-AzADServicePrincipal -DisplayName "Arc server onboarding account" -Role "Azure Connected Machine Onboarding"
@@ -162,7 +164,7 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
 - Fill in the Resource Group, Region, Operating System (Windows), keep Connectivity as "Public endpoint" and in the Authentication box select the onboarding service principal that you created in this task. Then download the script to your local machine (or you can copy the content into the clipboard).
 
-- Go to the ArcBox-Client machine via RDP and from Hyper-V manager right-click on the ArcBox-Win2K22 VM and click "Connect" (Administrator default password is ArcDemo123!!). Then start Windows Powershell ISE in the ArcBox-Win2K22 VM and copy the content of the onboarding script in the Script Pane.
+- Go to the ArcBox-Client machine via RDP and from Hyper-V manager right-click on the ArcBox-Win2K22 VM and click "Connect" (Administrator default password is JS123!!). Then start Windows Powershell ISE in the ArcBox-Win2K22 VM and copy the content of the onboarding script in the Script Pane.
 
 - Fill in the Service Principal secret in the script and run it.
 
@@ -194,11 +196,11 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
     ![Screenshot IP address of second Ubuntu machine](./IP_address_second_Linux_vm.png)
 
-- SSH into the ArcBox-Ubuntu-02 machine using "Putty" or "Vscode".
+- From the ArcBox-Client Azure VM, SSH into the ArcBox-Ubuntu-02 machine using "Putty" or "Vscode".
 
     ![Screenshot connect with putty](./putty.png)
 
-- Enter the user name and password (defaults "arcdemo" and "ArcDemo123!!") and log-in to the Linux VM.
+- Enter the user name and password (defaults "jumpstart" and "JS123!!") and log-in to the Linux VM.
 
 - create an empty onboarding script file using the nano editor, and paste the script content from your local machine (you can paste by right-clicking inside the nano editor window).
 
@@ -217,6 +219,7 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
     ![Screenshot Linux message confirm connection](./Linux_%20message_confirm_connection.png)
 
 ### Module 2: Monitor your Azure Arc-enabled servers using Azure Monitor
+[BE] UP TO HERE
 
 #### Module overview
 
