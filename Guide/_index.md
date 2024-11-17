@@ -56,10 +56,14 @@ The initial Azure resources required to complete this lab have already been depl
 
 ### Connecting to the ArcBox Client virtual machine
 
-Various options are available to connect to _ArcBox-Client_ VM, depending on the parameters you supplied during deployment.
+Use the following credentials to login to the ArcBox-Client Azure VM:
+| Username | Password |
+| arc-admin | HardPass123! |
 
-- [RDP](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connecting-directly-with-rdp) - available after configuring access to port 3389 on the _ArcBox-NSG_, or by enabling [Just-in-Time access (JIT)](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-just-in-time-accessjit).
-- [Azure Bastion](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-azure-bastion) - available if ```true``` was the value of your _`deployBastion`_ parameter during deployment.
+Various options are available to connect to _ArcBox-Client_ VM:
+
+- [RDP](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connecting-directly-with-rdp) - available after configuring access to port 3389 on the _ArcBox-NSG_, or by enabling [Just-in-Time access (JIT)](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-just-in-time-accessjit)
+- [Azure Bastion](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-azure-bastion)
 
 #### Connecting directly with RDP
 
@@ -101,7 +105,7 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
 #### The Logon scripts
 
-- Once you log into the _ArcBox-Client_ VM, multiple automated scripts will open and start running. These scripts usually take 10-20 minutes to finish, and once completed, the script windows will close automatically. At this point, the deployment is complete.
+- When the lab environment was first created, multiple automated scripts were run to pre-configure the Hyper-V environment. These scripts usually take 10-20 minutes to finish, and once completed, the script windows will close automatically. These scripts should have finshed by the time to connect, however if you see the scripts running, please allow them time to complete. If the scripts are still running or you see any errors, please discuss with yout guide.
 
   ![Screenshot showing ArcBox-Client](./automation.png)
 
