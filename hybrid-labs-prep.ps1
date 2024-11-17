@@ -20,7 +20,7 @@ $participantPrefix = "hybrid-"
 $userPassword = "Password123!"
 
 # Variable for the Entra ID directory name
-$directoryName = "danzig.live"
+$directoryName = "<FILL THIS IN>"
 
 # Variable for the Azure region to deploy resources
 $location = "australiaeast"
@@ -48,7 +48,7 @@ az config set core.allow_broker=true
 az login --scope https://graph.microsoft.com//.default
 
 # Set the subscription, can remove this bit for the Azure Pass deployment
-az account set -n "MSFT Demo Time"
+# az account set -n "<FILL THIS IN IF YOU GOT MULTIPLE SUBS>"
 
 
 # Loop through the number of participants, using double digits for the user number
