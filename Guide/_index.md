@@ -202,7 +202,7 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
 - Enter the user name and password (defaults "jumpstart" and "JS123!!") and log-in to the Linux VM.
 
-- create an empty onboarding script file using the nano editor, and paste the script content from your local machine (you can paste by right-clicking inside the nano editor window).
+- Create an empty onboarding script file using the nano editor, and paste the script content from your local machine (you can paste by right-clicking inside the nano editor window).
 
   ```shell
   nano onboardingscript.sh
