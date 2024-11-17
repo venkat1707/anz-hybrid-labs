@@ -10,19 +10,19 @@ For the number of participants specified, the script will:
 Use PowerShell version 7+
 #>
 
-# Variable for the participant count
+# Participant count - change this to the number of participants you want to create
 $participantCount = 3
 
-# Variable for the participant prefix
+# Participant prefix - used for the user account and resource group names
 $participantPrefix = "hybrid-"
 
-# Variable for the default user password
+# Default user password for the user accounts
 $userPassword = "Password123!"
 
-# Variable for the Entra ID directory name
+# Entra ID directory name - need this for the UPN
 $directoryName = "<FILL THIS IN>"
 
-# Variable for the Azure region to deploy resources
+# Azure region to deploy resources
 $location = "australiaeast"
 
 
