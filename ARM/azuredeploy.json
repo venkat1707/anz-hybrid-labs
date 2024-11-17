@@ -18,6 +18,7 @@
     },
     "clientVmSku": {
       "type": "string",
+      "defaultValue": "Standard_E8s_v5",
       "allowedValues": [
         "Standard_E8s_v5",
         "Standard_E8s_v4",
@@ -29,12 +30,14 @@
     },
     "windowsAdminUsername": {
       "type": "string",
+      "defaultValue": "arc-admin",
       "metadata": {
         "description": "Username for Windows account"
       }
     },
     "windowsAdminPassword": {
       "type": "securestring",
+      "defaultValue": "HardPass123!",
       "minLength": 12,
       "maxLength": 123,
       "metadata": {
@@ -53,6 +56,7 @@
     },
     "logAnalyticsWorkspaceName": {
       "type": "string",
+      "defaultValue": "arc-law",
       "metadata": {
         "description": "Name for your log analytics workspace"
       }
@@ -73,7 +77,7 @@
     },
     "deployBastion": {
       "type": "bool",
-      "defaultValue": false,
+      "defaultValue": true,
       "metadata": {
         "description": "Choice to deploy Bastion to connect to the client VM"
       }
@@ -101,6 +105,7 @@
     },
     "emailAddress": {
       "type": "string",
+      "defaultValue": "dummy@domain.com",
       "metadata": {
         "description": "Your email address to configure alerts."
       }
