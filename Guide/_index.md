@@ -57,7 +57,9 @@ The initial Azure resources required to complete this lab have already been depl
 ### Connecting to the ArcBox Client virtual machine
 
 Use the following credentials to login to the ArcBox-Client Azure VM:
+
 | Username | Password |
+|---------------|---------------|
 | arc-admin | HardPass123! |
 
 Various options are available to connect to _ArcBox-Client_ VM:
