@@ -55,7 +55,9 @@ To complete this laby you require a browser and internet access. It is recommend
 The initial Azure resources required to complete this lab have already been deployed in your allocated Azure resource group.
 
 However if you wish to complete this lab later in your own subscription, use the following like to deploy the same base configuration:
+
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Feldridgeb%2Fanz-hybrid-labs%2Fmain%2FARM%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a>
+
 The parameters can be mostly left with their default values, though feel free to customise if you wish (e.g. setting your email address for notifications).
 
 ### Connecting to the ArcBox Client virtual machine

@@ -1,5 +1,4 @@
 <#
-
 Script to prepare the Azure Pass subscription for multiple participants.
 
 For the number of participants specified, the script will:
@@ -9,7 +8,6 @@ For the number of participants specified, the script will:
 4. Deploy the ARM template to the resource group with default parameters
 
 Use PowerShell version 7+
-
 #>
 
 # Variable for the participant count
@@ -86,11 +84,14 @@ for ($i = 1; $i -le $participantCount; $i++) {
 
     # Get the resource group ID
     $resourceGroupId = az group show --name $resourceGroupName --query id --output tsv
-    Write-Host "Resource group ID: $resourceGroupId"
 
     # Assign the user account as the owner of the resource group
     az role assignment create --role "Owner" --assignee $userPrincipalName --scope $resourceGroupId
 
+    # Deploy the ARM template to the resource group with default parameters
+    Write-Host "Deploying ARM template to resource group: $resourceGroupName. Will probably take around 20 mins or so..."
+    az deployment group create --resource-group $resourceGroupName --template-file ./ARM/azuredeploy.json
+    Write-Host "Deployment has completed for resource group: $resourceGroupName"
 }
 
 Write-Host "All done."
