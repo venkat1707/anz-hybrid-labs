@@ -51,7 +51,7 @@ az login --scope https://graph.microsoft.com//.default
 # az account set -n "<FILL THIS IN IF YOU GOT MULTIPLE SUBS>"
 
 
-# Loop through the number of participants, using double digits for the user number
+# Loop through the number of participants, creating user accounts and resource groups, and then the ARM deployment
 for ($i = 1; $i -le $participantCount; $i++) {
     $userNumber = "{0:D2}" -f $i
     $participantName = $participantPrefix + $userNumber
