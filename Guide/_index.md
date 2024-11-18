@@ -17,7 +17,7 @@ After completion of this workshop, you will be able to:
 - Run scripts in your Arc-enabled Windows server by using Run Commands
 - Run automation runbooks on your Azure Arc-enabled servers using Hybrid runbook workers
 - Configure your Azure Arc-enabled servers using Azure Automanage machine configuration
-- Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center (Preview)
+- Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center
 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph
 - Enforce governance across your Azure Arc-enabled servers using Azure Policy
 - Enroll your Windows Server 2012/R2 or SQL Server 2012 machines for Extended Security Updates through Azure Arc
@@ -35,7 +35,7 @@ After completion of this workshop, you will be able to:
 |**Run scripts in your Arc-enabled Windows server by using Run Commands (demo)** | 5 minutes |  |
 |[**8 - Run automation runbooks on your Azure Arc-enabled servers using Hybrid runbook workers**](#module-8-run-automation-runbooks-on-your-azure-arc-enabled-servers-using-hybrid-runbook-workers) | 15 minutes |  |
 |[**9 - Configure your Azure Arc-enabled servers using Azure Automanage machine configuration**](#module-9-configure-your-azure-arc-enabled-servers-using-azure-automanage-machine-configuration) | 30 minutes |  |
-|[**10 - Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center (Preview)**](#module-10-manage-your-azure-arc-enabled-servers-using-admin-center-preview) | 15 minutes |  |
+|[**10 - Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center**](#module-10-manage-your-azure-arc-enabled-servers-using-admin-center) | 15 minutes |  |
 |[**11 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph**](#module-11-query-and-inventory-your-azure-arc-enabled-servers-using-azure-resource-graph) | 15 minutes |  |
 |[**12 - Enforce governance across your Azure Arc-enabled servers using Azure Policy**](#module-12-enforce-governance-across-your-azure-arc-enabled-servers-using-azure-policy) | 15 minutes |  |
 
@@ -553,13 +553,12 @@ In this module you will configure Windows security events collection using Senti
 
 #### Module overview
 
-Azure Update Manager is the new service that unifies all VMs running in Azure together with Azure Arc, putting all update tasks in 1 common area for all supported Linux and Windows versions.
+Azure Update Manager is a service that unifies all VMs running in Azure together with Azure Arc, putting all update tasks in 1 common area for all supported Linux and Windows versions.
 This service is NOT dependent on Log analytics agent. (The older Azure Automation Update service relies on Log Analytics agent)
 
 Extended Security Updates (ESU) for older Windows like Windows 2012 and 2012R2 are also available through this service (Free for Azure VMs, and an opt-in paid service for Arc).
 These modules will take a while to run, up to 15 minutes for each VM, due to processing required at the various VMs, although it is all running simultaneously.
 
-This new service is currently in preview and has no powershell scripting option (as of Aug 2023)
 
 #### Onboarding the Arc-enabled servers
 
@@ -643,7 +642,7 @@ You have also seen some of the default reports, and since they use workbooks, yo
 
 #### Module overview
 
-Change Tracking and Inventory is an built-in Azure service, provided by Azure Automation. The old version uses the Log Analytics agent, while the new (preview) version uses the Azure Monitor Agent (AMA).
+Change Tracking and Inventory is an built-in Azure service, provided by Azure Automation. The old version uses the Log Analytics agent, while the newer version uses the Azure Monitor Agent (AMA).
 
 #### Prerequisites
 
@@ -652,9 +651,6 @@ The following are required for this module to function:
 1. Ensure that the servers are already on-boarded to Azure Arc (As in Module 1).
 2. Ensure that the Azure Monitor agent (AMA) is already deployed on every Arc-enabled server (As in Module 2).
 
-Currently, the policies to enable Change tracking and inventory with AMA are in preview. For a seamless policy experience, begin by enabling the _Microsoft.Compute/AutomaticExtensionUpgradePreview_ feature flag for your specific subscription. To register for this feature flag, go to Azure portal > Subscriptions > Select specific subscription name. In the Preview features, select Automatic Extension Upgrade Preview and then select Register.
-
-   ![Screenshot showing how to enable preview change tracking](./changetracking-enable.png)
 
 #### Current Limitations
 
@@ -1525,7 +1521,7 @@ Due to using MOF-based DSC resources for the Windows demo-configuration, we are 
 
   ![Screenshot of VScode showing Azure Machine Configuration validation on Windows](./vscode_win_machine_config_validation.png)
 
-### Module 10: Manage your Azure Arc-enabled servers using Admin Center (Preview)
+### Module 10: Manage your Azure Arc-enabled servers using Admin Center
 
 #### Module overview
 
@@ -1565,7 +1561,7 @@ Pre-requisite: Azure permissions
 
     ![Screenshot permissions missing for Admin Centre](./Admin_Centre_install_message_1.png)
 
-#### Task 3: Connect and explore Windows Admin Center (preview)
+#### Task 3: Connect and explore Windows Admin Center
 
 - Once the installation is complete then you can connect to the Windows Admin Center.
 
