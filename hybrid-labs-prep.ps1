@@ -11,16 +11,16 @@ Use PowerShell version 7+
 #>
 
 # Participant count - change this to the number of participants you want to create
-$participantCount = 3
+$participantCount = 2
 
 # Participant prefix - used for the user account and resource group names
 $participantPrefix = "hybrid-"
 
 # Default user password for the user accounts
-$userPassword = "Password123!"
+$userPassword = "HardPass123!"
 
 # Entra ID directory name - need this for the UPN
-$directoryName = "<FILL THIS IN>"
+# $directoryName = "<FILL THIS IN>"
 
 # Azure region to deploy resources
 $location = "australiaeast"
@@ -85,13 +85,25 @@ for ($i = 1; $i -le $participantCount; $i++) {
     # Get the resource group ID
     $resourceGroupId = az group show --name $resourceGroupName --query id --output tsv
 
-    # Assign the user account as the owner of the resource group
-    az role assignment create --role "Owner" --assignee $userPrincipalName --scope $resourceGroupId
-
     # Deploy the ARM template to the resource group with default parameters
     Write-Host "Deploying ARM template to resource group: $resourceGroupName. Will probably take around 20 mins or so..."
     az deployment group create --resource-group $resourceGroupName --template-file ./ARM/azuredeploy.json
     Write-Host "Deployment has completed for resource group: $resourceGroupName"
+
+    $user = Get-EntraUser -UserId $userPrincipalName -ErrorAction SilentlyContinue
+    if ($user) {
+        # Assign the user account as the owner of the resource group
+        az role assignment create --role "Owner" --assignee $userPrincipalName --scope $resourceGroupId
+    }
+    else {
+        Write-Host "Unable to find user: $userPrincipalName"
+    }
 }
+
+# Get the current subscription ID
+$subscriptionId = az account show --query id --output tsv
+
+# Create a service principal to be shared with the participants
+az ad sp create-for-rbac --name "Arc server onboarding account" --role "Azure Connected Machine Onboarding" --scopes "/subscriptions/$subscriptionId"
 
 Write-Host "All done."
