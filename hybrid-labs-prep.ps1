@@ -66,6 +66,7 @@ for ($i = 1; $i -le $participantCount; $i++) {
         # Create the user account in the Entra ID directory
         $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
         $passwordProfile.Password = $userPassword
+        $passwordProfile.ForceChangePasswordNextSignIn = $false
         $userParams = @{
             DisplayName = $participantName
             PasswordProfile = $passwordProfile

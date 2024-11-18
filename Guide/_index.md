@@ -148,6 +148,8 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
 
 - We will onboard the Windows machine ArcBox-Win2K22 using the [Service Principal onboarding method](https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-service-principal).
 
+- For this lab environment, a service principal called `Arc server onboarding account` had already been created and granted the `Azure Connected Machine Onboarding` role, so you don't need to complete the next 2 steps. Your lab instructor will provide the service principal secret.
+
 - We will use Azure Cloud Shell to run some Azure PowerShell commands. From the Azure Portal, select the Cloud Shell icon in the top right to open Cloud Shell. Select the PowerShell option (not Bash) to create the environment. 
 
 - Using the following Powershell commands create a service principal and assign it the Azure Connected Machine Onboarding role for the selected subscription. After the service principal is created, it will print the application ID and secret (copy these somewhere safe for later use). Note :
