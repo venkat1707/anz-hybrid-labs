@@ -54,7 +54,7 @@ for ($i = 1; $i -le $participantCount; $i++) {
         Write-Host "User account already exists: $participantName"
     } else {
         Write-Host "Creating user account: $participantName"
-        az ad user create --display-name $userNumber --password $userPassword --user-principal-name $userPrincipalName --force-change-password-next-sign-in false
+        az ad user create --display-name $participantName --password $userPassword --user-principal-name $userPrincipalName --force-change-password-next-sign-in false
         Write-Host "User account created: $participantName"
     }
 
