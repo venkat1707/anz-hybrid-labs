@@ -421,6 +421,8 @@ In this module, you will learn how to enable and leverage Microsoft Defender for
 
 #### Task 3: Detect threats on your servers using alerts
 
+  > **NOTE: Alerts may not be visibile in the lab environment due to access restrictions - considering skipping to task 4**
+
 - To simulate a malicious activity on the _Win2k22_ servers, rdp into the _ArcBox-Client_ VM
 - Go to Start and type _PowerShell ISE_.
 - Right-select and select Run as administrator.
@@ -584,7 +586,7 @@ This can also be set as an automatic recurring task for at scale refresh - once 
 
    ![Screenshot showing the dynamic scopes for update groups](./updatemgmt-dynamicscopes.png)
 
->**Note: If you want to enable dynamic scopes, you will need to enable the "Dynamic Scoping" preview feature in the subscription
+>**Note: If you want to enable dynamic scopes, you will need to enable the "Dynamic Scoping" preview feature in the subscription. This may not work for the lab environment due to access limitations.
 
    ![Screenshot showing the dynamic scopes for update groups](./updatemgmt-previewdynamicscope.png)
 
