@@ -647,6 +647,8 @@ You have also seen some of the default reports, and since they use workbooks, yo
 
 Change Tracking and Inventory is an built-in Azure service, provided by Azure Automation. The old version uses the Log Analytics agent, while the newer version uses the Azure Monitor Agent (AMA).
 
+> **NOTE: Some instructions and screenshots refer to the older preview experience and will be slightly different in the current Azure portal.
+
 #### Prerequisites
 
 The following are required for this module to function:
