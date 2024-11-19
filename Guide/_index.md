@@ -393,6 +393,8 @@ In this module, you will learn how to enable and leverage Microsoft Defender for
 
 #### Task 2: Enable the Defender for Servers plan
 
+- **Note:** Defender for Servers should already be enabled in the Azure subscription used during this lab, so the following steps can be skipped. 
+
 - From the Azure home page, search for defender and select Microsoft Defender for Cloud.
 
     ![Screenshot showing searching for Defender for Cloud in the Azure Portal](./defenderForCloud_portal_search.png)
