@@ -11,7 +11,7 @@ Use PowerShell version 7+
 #>
 
 # Participant count - change this to the number of participants you want to create
-$participantCount = 2
+$participantCount = 1
 
 # Participant prefix - used for the user account and resource group names
 $participantPrefix = "hybrid-"
@@ -41,6 +41,16 @@ az login --scope https://graph.microsoft.com//.default
 # Set the subscription, can remove this bit for the Azure Pass deployment
 # az account set -n "<FILL THIS IN IF YOU GOT MULTIPLE SUBS>"
 
+# Get the current subscription ID
+$subscriptionId = az account show --query id --output tsv
+
+# Azure resource providers registration
+az provider register --namespace Microsoft.Security
+az provider register --namespace Microsoft.Maintenance
+
+# Enable Defender for Servers Plan 2 on the subscription
+az security pricing create -n VirtualMachines --tier standard --subplan P2
+az security auto-provisioning-setting update -n "default" --auto-provision "On"
 
 # Loop through the number of participants, creating user accounts and resource groups, and then the ARM deployment
 for ($i = 1; $i -le $participantCount; $i++) {
@@ -80,9 +90,6 @@ for ($i = 1; $i -le $participantCount; $i++) {
         Write-Host "Unable to find user: $userPrincipalName"
     }
 }
-
-# Get the current subscription ID
-$subscriptionId = az account show --query id --output tsv
 
 # Create a service principal to be shared with the participants, write the output to a file
 az ad sp create-for-rbac --name "Arc server onboarding account" --role "Azure Connected Machine Onboarding" --scopes "/subscriptions/$subscriptionId" > arc-server-onboarding-spn.json
