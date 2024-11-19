@@ -21,6 +21,7 @@ $userPassword = "HardPass123!"
 
 # Entra ID directory name - need this for the UPN
 # $directoryName = "<FILL THIS IN>"
+$directoryName = "anzhybridlabsoutlook.onmicrosoft.com"
 
 # Azure region to deploy resources
 $location = "australiaeast"
@@ -66,7 +67,6 @@ for ($i = 1; $i -le $participantCount; $i++) {
         # Create the user account in the Entra ID directory
         $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
         $passwordProfile.Password = $userPassword
-        $passwordProfile.ForceChangePasswordNextSignIn = $false
         $userParams = @{
             DisplayName = $participantName
             PasswordProfile = $passwordProfile
@@ -104,7 +104,8 @@ for ($i = 1; $i -le $participantCount; $i++) {
 # Get the current subscription ID
 $subscriptionId = az account show --query id --output tsv
 
-# Create a service principal to be shared with the participants
-az ad sp create-for-rbac --name "Arc server onboarding account" --role "Azure Connected Machine Onboarding" --scopes "/subscriptions/$subscriptionId"
+# Create a service principal to be shared with the participants, write the output to a file
+az ad sp create-for-rbac --name "Arc server onboarding account" --role "Azure Connected Machine Onboarding" --scopes "/subscriptions/$subscriptionId" > arc-server-onboarding-spn.json
+
 
 Write-Host "All done."
