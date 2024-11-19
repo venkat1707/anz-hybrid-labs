@@ -34,16 +34,6 @@ if (-not (Get-Module -Name Az -ListAvailable)) {
     Write-Host "Az module installed"
 }
 
-# And the same for the Entra ID module
-if (-not (Get-Module -Name Microsoft.Graph.Entra -ListAvailable)) {
-    Write-Host "Microsoft.Graph.Entra module not found, installing..."
-    Install-Module -Name Microsoft.Graph.Entra -Repository PSGallery -AllowPrerelease -AllowClobber -Force
-    Write-Host "Microsoft.Graph.Entra module installed"
-}
-
-# Sign in to Entra
-Connect-Entra -Scopes "User.ReadWrite.All"
-
 # Sign in to Azure
 az config set core.allow_broker=true
 az login --scope https://graph.microsoft.com//.default
@@ -59,22 +49,12 @@ for ($i = 1; $i -le $participantCount; $i++) {
     $userPrincipalName = "$participantName@$directoryName"
 
     # Check if the user account already exists
-    $user = Get-EntraUser -UserId $userPrincipalName -ErrorAction SilentlyContinue
+    $user = az ad user show --id $userPrincipalName
     if ($user) {
         Write-Host "User account already exists: $participantName"
     } else {
         Write-Host "Creating user account: $participantName"
-        # Create the user account in the Entra ID directory
-        $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
-        $passwordProfile.Password = $userPassword
-        $userParams = @{
-            DisplayName = $participantName
-            PasswordProfile = $passwordProfile
-            UserPrincipalName = $userPrincipalName
-            AccountEnabled = $true
-            MailNickName = $participantName
-        }
-        New-EntraUser @userParams
+        az ad user create --display-name $userNumber --password $userPassword --user-principal-name $userPrincipalName --force-change-password-next-sign-in false
         Write-Host "User account created: $participantName"
     }
 
