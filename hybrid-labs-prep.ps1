@@ -45,6 +45,7 @@ az login --scope https://graph.microsoft.com//.default
 $subscriptionId = az account show --query id --output tsv
 
 # Azure resource providers registration
+az provider register --namespace Microsoft.HybridCompute
 az provider register --namespace Microsoft.Security
 az provider register --namespace Microsoft.Maintenance
 
