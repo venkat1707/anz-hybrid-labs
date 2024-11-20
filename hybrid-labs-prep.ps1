@@ -51,6 +51,10 @@ az provider register --wait --namespace Microsoft.HybridConnectivty
 az provider register --wait --namespace Microsoft.HybridCloud
 az provider register --wait --namespace Microsoft.Security
 az provider register --wait --namespace Microsoft.Maintenance
+az provider register --wait --namespace Microsoft.GuestConfiguration 
+az provider register --wait --namespace Microsoft.AzureArcData
+az provider register --wait --namespace Microsoft.OperationsManagement
+az provider register --wait --namespace Microsoft.SecurityInsights
 
 # Enable Defender for Servers Plan 2 on the subscription
 az security pricing create -n VirtualMachines --tier standard --subplan P2
