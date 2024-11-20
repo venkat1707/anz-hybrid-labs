@@ -63,28 +63,8 @@ Use the following credentials to login to the ArcBox-Client Azure VM:
 |---------------|---------------|
 | arc-admin | HardPass123! |
 
-Various options are available to connect to _ArcBox-Client_ VM:
+We'll be using Azure [Azure Bastion](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-azure-bastion)
 
-- [RDP](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connecting-directly-with-rdp) - available after configuring access to port 3389 on the _ArcBox-NSG_, or by enabling [Just-in-Time access (JIT)](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-just-in-time-accessjit)
-- [Azure Bastion](https://azurearcjumpstart.io/azure_jumpstart_arcbox/ITPro/#connect-using-azure-bastion)
-
-#### Connecting directly with RDP
-
-By design, ArcBox does not open port 3389 on the network security group. Therefore, you must create an NSG rule to allow inbound 3389.
-
-- Open the _ArcBox-NSG_ resource in Azure portal and click "Add" to add a new rule.
-
-  ![Screenshot showing ArcBox-Client NSG with blocked RDP](./rdp_nsg_blocked.png)
-
-  ![Screenshot showing adding a new inbound security rule](./nsg_add_rule.png)
-
-- Specify the IP address that you will be connecting from and select RDP as the service with "Allow" set as the action. You can retrieve your public IP address by accessing [https://icanhazip.com](https://icanhazip.com) or [https://whatismyip.com](https://whatismyip.com).
-
-  <img src="./nsg_add_rdp_rule.png" alt="Screenshot showing adding a new allow RDP inbound security rule" width="400">
-
-  ![Screenshot showing all inbound security rule](./rdp_nsg_all_rules.png)
-
-  ![Screenshot showing connecting to the VM using RDP](./rdp_connect.png)
 
 #### Connect using Azure Bastion
 
@@ -94,17 +74,6 @@ By design, ArcBox does not open port 3389 on the network security group. Therefo
 
   > **NOTE: When using Azure Bastion, the desktop background image is not visible. Therefore some screenshots in this guide may not exactly match your experience if you are connecting to _ArcBox-Client_ with Azure Bastion.**
 
-#### Connect using just-in-time access (JIT)
-
-If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/azure/defender-for-cloud/just-in-time-access-usage?tabs=jit-config-asc%2Cjit-request-asc) enabled on your subscription and would like to use JIT to access the Client VM, use the following steps:
-
-- In the Client VM configuration pane, enable just-in-time. This will enable the default settings.
-
-  ![Screenshot showing the Microsoft Defender for cloud portal, allowing RDP on the client VM](./jit_configure.png)
-
-  ![Screenshot showing connecting to the VM using RDP](./rdp_connect.png)
-
-  ![Screenshot showing connecting to the VM using JIT](./jit_connect_rdp.png)
 
 #### The Logon scripts
 
