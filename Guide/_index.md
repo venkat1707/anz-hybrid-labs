@@ -32,9 +32,8 @@ After completion of this workshop, you will be able to:
 |[**5 - Keep your Azure Arc-enabled servers patched using Azure Update Manager**](#module-5-keep-your-azure-arc-enabled-servers-patched-using-azure-manager) | 15 minutes |  |
 |[**6 - Monitor changes to your Azure Arc-enabled servers using Change tracking and inventory**](#module-6-monitor-changes-to-your-azure-arc-enabled-servers-using-change-tracking-and-inventory) | 15 minutes |  |
 |[**7 - Configure your Azure Arc-enabled servers using Azure Automanage machine configuration**](#module-9-configure-your-azure-arc-enabled-servers-using-azure-automanage-machine-configuration) | 30 minutes |  |
-|[**8 - Manage the Windows operating system of your Arc-enabled servers using Windows Admin Center**](#module-10-manage-your-azure-arc-enabled-servers-using-admin-center) | 15 minutes |  |
-|[**9 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph**](#module-11-query-and-inventory-your-azure-arc-enabled-servers-using-azure-resource-graph) | 15 minutes |  |
-|[**10 - Enforce governance across your Azure Arc-enabled servers using Azure Policy**](#module-12-enforce-governance-across-your-azure-arc-enabled-servers-using-azure-policy) | 15 minutes |  |
+|[**8 - Query and inventory your Azure Arc-enabled servers using Azure Resource Graph**](#module-11-query-and-inventory-your-azure-arc-enabled-servers-using-azure-resource-graph) | 15 minutes |  |
+|[**9 - Enforce governance across your Azure Arc-enabled servers using Azure Policy**](#module-12-enforce-governance-across-your-azure-arc-enabled-servers-using-azure-policy) | 15 minutes |  |
 
 
 ## LevelUp Lab Environment
@@ -1018,70 +1017,8 @@ Due to using MOF-based DSC resources for the Windows demo-configuration, we are 
 
   ![Screenshot of VScode showing Azure Machine Configuration validation on Windows](./vscode_win_machine_config_validation.png)
 
-### Module 8: Manage your Azure Arc-enabled servers using Admin Center
 
-#### Module overview
-
-In this module you will learn how to use the Windows Admin Center in the Azure portal to manage the Windows operating system of your Arc-enabled servers, known as hybrid machines. You can securely manage hybrid machines from anywhere without needing a VPN, public IP address, or other inbound connectivity to your machine.
-
-#### Task 1: Pre-requisites
-
-Pre-requisite: Azure permissions
-
-- To install the Windows Admin Center extension for an Arc-enabled server resource, your account must be granted the Owner, Contributor, or Windows Admin Center Administrator Login role in Azure. **You should have this already on your internal subscription.**
-
-- Connecting to Windows Admin Center requires you to have Reader and Windows Admin Center Administrator Login permissions at the Arc-enabled server resource.
-
-    - Enter "Machines - Azure Arc" in the top search bar in the Azure portal and select it from the displayed services.
-
-        ![Screenshot showing how to display Arc connected servers in portal](./Arc_servers_search.png)
-
-    - Click on your Azure Arc-enabled **Windows** servers.
-
-        ![Screenshot showing existing Arc connected servers](./click_on_any_arc_enabled_server.png)
-
-    - From the selected Windows machine click "Access control (IAM)" then add the role "Admin Center Administrator Login" to your access.
-
-        ![Screenshot of required role for Admin Center](./Admin_centre_Add_Role_1.png)
-
-    - Follow similar steps to assign yourself Reader permissions at the Arc-enabled server resource.
-
-#### Task 2: Deploy the Windows Admin Center VM extension
-
-- Open the Azure portal and navigate to your Arc-enabled server.
-- Under the Settings group, select Windows Admin Center, then click "Set up".
-- Specify the port on which you wish to install Windows Admin Center, and then select Install.
-
-    ![Screenshot deploy Admin Centre Extension](./Admin_center_install.png)
-
-- If you get the following message after the installation is complete then you need to go back to the previous step and set up the permissions as explained in Pre-requisite.
-
-    ![Screenshot permissions missing for Admin Centre](./Admin_Centre_install_message_1.png)
-
-#### Task 3: Connect and explore Windows Admin Center
-
-- Once the installation is complete then you can connect to the Windows Admin Center.
-
-    ![Screenshot connecting to Admin Center](./Admin_Center_Connect.png)
-
-- Start exploring the capabilities offered by the Windows Admin Center to manage your Arc-enabled Windows machine.
-
-    ![Screenshot Admin Center overview](./Admin_Centre_Overview.png)
-
-- Let us use the Windows Admin Center to add a local user, a new group and assign the new user to the new group.
-    - From the left menu select "Local users & groups". Then from the "Users" tab click "New user". Enter the user details and click on "Submit". Verify that the user has been added.
-
-        ![Screenshot adding local user](./Admin_center_local_users_1.png)
-
-    - Now select the "Groups" tab and click on "New Group". Enter the group details and click on "Submit". Verify that the group has been added.
-
-        ![Screenshot adding local group](./Admin_center_local_groups_1.png)
-
-    - Back to the "Users" tab, select the new user you have added, then click "Manage membership". Add the selected user to the new group and save.
-
-        ![Screenshot Group membership](./Admin_centre_group_membership_1.png)
-
-### Module 9: Query and inventory your Azure Arc-enabled servers using Azure resource graph
+### Module 8: Query and inventory your Azure Arc-enabled servers using Azure resource graph
 
 #### Module overview
 
@@ -1205,7 +1142,7 @@ Then run the query in PowerShell
 
     ![Screenshot of extra properties](./extra_properties.png)
 
-### Module 10: Enforce governance across your Azure Arc-enabled servers using Azure Policy
+### Module 9: Enforce governance across your Azure Arc-enabled servers using Azure Policy
 
 #### Module overview
 
