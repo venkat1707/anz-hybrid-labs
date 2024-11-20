@@ -223,7 +223,6 @@ If you already have [Microsoft Defender for Cloud](https://docs.microsoft.com/az
     ![Screenshot Linux message confirm connection](./Linux_%20message_confirm_connection.png)
 
 ### Module 2: Monitor your Azure Arc-enabled servers using Azure Monitor
-[BE] UP TO HERE
 
 #### Module overview
 

@@ -45,12 +45,12 @@ az login --scope https://graph.microsoft.com//.default
 $subscriptionId = az account show --query id --output tsv
 
 # Azure resource providers registration - these can take a while so consider running them manually before the rest of the script
-az provider register --namespace Microsoft.HybridCompute
-az provider register --namespace Microsoft.HybridNetwork
-az provider register --namespace Microsoft.HybridConnectivty
-az provider register --namespace Microsoft.HybridCloud
-az provider register --namespace Microsoft.Security
-az provider register --namespace Microsoft.Maintenance
+az provider register --wait --namespace Microsoft.HybridCompute
+az provider register --wait --namespace Microsoft.HybridNetwork
+az provider register --wait --namespace Microsoft.HybridConnectivty
+az provider register --wait --namespace Microsoft.HybridCloud
+az provider register --wait --namespace Microsoft.Security
+az provider register --wait --namespace Microsoft.Maintenance
 
 # Enable Defender for Servers Plan 2 on the subscription
 az security pricing create -n VirtualMachines --tier standard --subplan P2
