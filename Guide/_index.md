@@ -779,21 +779,18 @@ We will be using the ArcBox Client virtual machine for the configuration authori
 
 ##### Custom configuration for Windows
 
-- Initialize variables.
+- Initialize variables and login to Azure.
 
   ```PowerShell
   $resourceGroupName = $env:resourceGroup
   $location = $env:azureLocation
-  $spnClientId = $env:spnClientID
-  $spnClientSecret = $env:spnClientSecret
-  $spnTenantId = $env:spnTenantId
   $Win2k19vmName = "ArcBox-Win2K19"
   $Win2k22vmName = "ArcBox-Win2K22"
 
-  $SecurePassword = ConvertTo-SecureString -String $spnClientSecret -AsPlainText -Force
-  $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spnClientId, $SecurePassword
-  Connect-AzAccount -ServicePrincipal -TenantId $spnTenantId -Credential $Credential
+  Connect-AzAccount
   ```
+- When prompted, authenticate with the same username and password used to access the Azure portal.
+
 
 - Install the needed PowerShell modules.
 
@@ -833,7 +830,7 @@ Due to using MOF-based DSC resources for the Windows demo-configuration, we are 
 
   ```PowerShell
   $storageaccountsuffix = -join ((97..122) | Get-Random -Count 5 | % {[char]$_})
-  New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name "machineconfigstg$storageaccountsuffix" -SkuName 'Standard_LRS' -Location $Location -OutVariable storageaccount -EnableHttpsTrafficOnly $true | New-AzStorageContainer -Name machineconfiguration -Permission Blob
+  New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name "machineconfigstg$storageaccountsuffix" -SkuName 'Standard_LRS' -Location $Location -OutVariable storageaccount -EnableHttpsTrafficOnly $true -AllowBlobPublicAccess $true | New-AzStorageContainer -Name machineconfiguration -Permission Blob
   ```
 
 - Create the custom configuration
@@ -856,8 +853,8 @@ Due to using MOF-based DSC resources for the Windows demo-configuration, we are 
       {
           MsiPackage PS7
           {
-              ProductId = '{B06D1894-3827-4E0C-A092-7DC50BE8B210}'
-              Path = 'https://github.com/PowerShell/PowerShell/releases/download/v7.4.1/PowerShell-7.4.1-win-x64.msi'
+              ProductId = '{AA89DEED-9030-494E-9F28-53A4D9B55D12}'
+              Path = 'https://github.com/PowerShell/PowerShell/releases/download/v7.4.6/PowerShell-7.4.6-win-x64.msi'
               Ensure = 'Present'
           }
           User ArcBoxUser
