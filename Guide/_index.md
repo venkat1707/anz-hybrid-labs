@@ -77,7 +77,7 @@ We'll be using Azure [Azure Bastion](https://azurearcjumpstart.io/azure_jumpstar
 
 #### The Logon scripts
 
-- When the lab environment was first created, multiple automated scripts were run to pre-configure the Hyper-V environment. These scripts usually take 10-20 minutes to finish, and once completed, the script windows will close automatically. These scripts should have finshed by the time to connect, however if you see the scripts running, please allow them time to complete. If the scripts are still running or you see any errors, please discuss with your guide.
+- When the lab environment was first created, multiple automated scripts were run to pre-configure the Hyper-V environment. These scripts usually take 10-20 minutes to finish, and once completed, the script windows will close automatically. These scripts should have finshed by the time you start the lab. However if you see the scripts running, please allow them time to complete. If the scripts are still running or you see any errors, please discuss with your guide.
 
   ![Screenshot showing ArcBox-Client](./automation.png)
 
