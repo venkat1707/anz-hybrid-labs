@@ -21,7 +21,7 @@ $userPassword = "HardPass123!"
 
 # Entra ID directory name - need this for the UPN
 # $directoryName = "<FILL THIS IN>"
-$directoryName = "anzhybridlabsoutlook.onmicrosoft.com"
+$directoryName = "demotime.live"
 
 # Azure region to deploy resources
 $location = "australiaeast"

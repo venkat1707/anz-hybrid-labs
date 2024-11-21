@@ -8,7 +8,7 @@ $participantPrefix = "hybrid-"
 
 # Entra ID directory name - need this for the UPN
 # $directoryName = "<FILL THIS IN>"
-$directoryName = "danzig.live"
+$directoryName = "demotime.live"
 
 # Check that az module is installed, install if not
 if (-not (Get-Module -Name Az -ListAvailable)) {
