@@ -758,11 +758,12 @@ We will be using the ArcBox Client virtual machine for the configuration authori
 ```PowerShell
 $resourceGroupName = $env:resourceGroup
 $location = $env:azureLocation
-$spnClientId = "<Replace with service principal ID>"
-$spnClientSecret = "<Replace with service principal secret>"
 $spnTenantId = $env:spnTenantId
 $Win2k19vmName = "ArcBox-Win2K19"
 $Win2k22vmName = "ArcBox-Win2K22"
+
+$spnClientId = "<Replace with service principal ID>"
+$spnClientSecret = "<Replace with service principal secret>"
 
 $SecurePassword = ConvertTo-SecureString -String $spnClientSecret -AsPlainText -Force
 $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spnClientId, $SecurePassword
@@ -914,17 +915,17 @@ Due to using MOF-based DSC resources for the Windows demo-configuration, we are 
   New-GuestConfigurationPolicy `
     -PolicyId $PolicyId `
     -ContentUri $ContentUri `
-    -DisplayName '(AzureArcJumpstart) [Windows] Custom configuration' `
-    -Description 'Azure Arc Jumpstart Windows demo configuration' `
+    -DisplayName "(AzureArcJumpstart) [Windows] Custom configuration $storageaccountsuffix" `
+    -Description "Azure Arc Jumpstart Windows demo configuration" `
     -Path  $OutputPath `
-    -Platform 'Windows' `
+    -Platform "Windows" `
     -PolicyVersion 1.0.0 `
     -Mode ApplyAndAutoCorrect `
     -Verbose -OutVariable Policy
 
-    $PolicyParameterObject = @{'IncludeArcMachines'='true'}
+  $PolicyParameterObject = @{'IncludeArcMachines'='true'}
 
-    New-AzPolicyDefinition -Name '(AzureArcJumpstart) [Windows] Custom configuration' -Policy $Policy.Path -OutVariable PolicyDefinition
+  New-AzPolicyDefinition -Name "(AzureArcJumpstart) [Windows] Custom config $storageaccountsuffix" -Policy $Policy.Path -OutVariable PolicyDefinition
   ```
 
 - Assign the Azure Policy definition to the target resource group.
@@ -932,13 +933,13 @@ Due to using MOF-based DSC resources for the Windows demo-configuration, we are 
   ```PowerShell
   $ResourceGroup = Get-AzResourceGroup -Name $ResourceGroupName
 
-  New-AzPolicyAssignment -Name '(AzureArcJumpstart) [Windows] Custom configuration' -PolicyDefinition $PolicyDefinition[0] -Scope $ResourceGroup.ResourceId -PolicyParameterObject $PolicyParameterObject -IdentityType SystemAssigned -Location $Location -DisplayName '(AzureArcJumpstart) [Windows] Custom configuration' -OutVariable PolicyAssignment
+  New-AzPolicyAssignment -Name "(AzureArcJumpstart) [Windows] Custom config $storageaccountsuffix" -PolicyDefinition $PolicyDefinition[0] -Scope $ResourceGroup.ResourceId -PolicyParameterObject $PolicyParameterObject -IdentityType SystemAssigned -Location $Location -DisplayName "(AzureArcJumpstart) [Windows] Custom config $storageaccountsuffix" -OutVariable PolicyAssignment
   ```
 
 - In order for the newly assigned policy to remediate existing resources, the policy must be assigned a managed identity and a policy remediation must be performed.
 
   ```PowerShell
-  $PolicyAssignment = Get-AzPolicyAssignment -PolicyDefinitionId $PolicyDefinition.PolicyDefinitionId | Where-Object Name -eq '(AzureArcJumpstart) [Windows] Custom configuration'
+  $PolicyAssignment = Get-AzPolicyAssignment -PolicyDefinitionId $PolicyDefinition.PolicyDefinitionId | Where-Object Name -eq "(AzureArcJumpstart) [Windows] Custom config $storageaccountsuffix"
 
   $roleDefinitionIds =  $PolicyDefinition.Properties.policyRule.then.details.roleDefinitionIds
 
