@@ -55,6 +55,11 @@ However if you wish to complete this lab later in your own subscription, use the
 
 The parameters can be mostly left with their default values, though feel free to customise if you wish (e.g. setting your email address for notifications).
 
+### Azure portal login
+
+- Login to the [Azure portal](https://portal.azure.com) using the credentials provided by your instructor
+- If prompted to configure MFA, select *Ask later* (yes this is generally a bad idea, however these are temporary credentials used just for today's lab)
+
 ### Connecting to the ArcBox Client virtual machine
 
 Use the following credentials to login to the ArcBox-Client Azure VM:
@@ -748,15 +753,20 @@ We will be using the ArcBox Client virtual machine for the configuration authori
 
 ##### Custom configuration for Windows
 
-- Initialize variables and login to Azure.
+- Initialize variables and login to Azure. Add the service principal ID and secret into the variables below, using the same details as provided for module 1.
 
   ```PowerShell
-  $resourceGroupName = $env:resourceGroup
-  $location = $env:azureLocation
-  $Win2k19vmName = "ArcBox-Win2K19"
-  $Win2k22vmName = "ArcBox-Win2K22"
+$resourceGroupName = $env:resourceGroup
+$location = $env:azureLocation
+$spnClientId = "<Replace with service principal ID>"
+$spnClientSecret = "<Replace with service principal secret>"
+$spnTenantId = $env:spnTenantId
+$Win2k19vmName = "ArcBox-Win2K19"
+$Win2k22vmName = "ArcBox-Win2K22"
 
-  Connect-AzAccount
+$SecurePassword = ConvertTo-SecureString -String $spnClientSecret -AsPlainText -Force
+$Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spnClientId, $SecurePassword
+Connect-AzAccount -ServicePrincipal -TenantId $spnTenantId -Credential $Credential
   ```
 - When prompted, authenticate with the same username and password used to access the Azure portal.
 
