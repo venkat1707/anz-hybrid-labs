@@ -101,10 +101,9 @@ for ($i = 1; $i -le $participantCount; $i++) {
 
 # Create a service principal to be shared with the participants, write the output to a file
 az ad sp create-for-rbac --name "Arc server onboarding account" --role "Azure Connected Machine Onboarding" --scopes "/subscriptions/$subscriptionId" > arc-server-onboarding-spn.json
-
-# Get the service principal App ID
 $spnAppId = (Get-Content arc-server-onboarding-spn.json | ConvertFrom-Json).appId
 
+# Additional roles for module 7
 az role assignment create --assignee $spnAppId --scope "/subscriptions/$subscriptionId" --role "Storage Account Contributor"
 az role assignment create --assignee $spnAppId --scope "/subscriptions/$subscriptionId" --role "Resource Policy Contributor"
 
