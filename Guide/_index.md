@@ -755,7 +755,7 @@ We will be using the ArcBox Client virtual machine for the configuration authori
 
 - Initialize variables and login to Azure. Add the service principal ID and secret into the variables below, using the same details as provided for module 1.
 
-  ```PowerShell
+```PowerShell
 $resourceGroupName = $env:resourceGroup
 $location = $env:azureLocation
 $spnClientId = "<Replace with service principal ID>"
@@ -767,7 +767,8 @@ $Win2k22vmName = "ArcBox-Win2K22"
 $SecurePassword = ConvertTo-SecureString -String $spnClientSecret -AsPlainText -Force
 $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $spnClientId, $SecurePassword
 Connect-AzAccount -ServicePrincipal -TenantId $spnTenantId -Credential $Credential
-  ```
+```
+
 - When prompted, authenticate with the same username and password used to access the Azure portal.
 
 
