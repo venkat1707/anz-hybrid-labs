@@ -18,7 +18,7 @@
     },
     "clientVmSku": {
       "type": "string",
-      "defaultValue": "Standard_E8s_v5",
+      "defaultValue": "Standard_D4s_v5",
       "allowedValues": [
         "Standard_D4s_v5",
         "Standard_D4s_v4",
@@ -63,7 +63,7 @@
     },
     "githubAccount": {
       "type": "string",
-      "defaultValue": "Azure",
+      "defaultValue": "venkat1707",
       "metadata": {
         "description": "Target GitHub account"
       }
@@ -84,7 +84,7 @@
     },
     "githubUser": {
       "type": "string",
-      "defaultValue": "microsoft",
+      "defaultValue": "venkat1707",
       "metadata": {
         "description": "User github account where they have forked https://github.com/microsoft/azure-arc-jumpstart-apps"
       }
