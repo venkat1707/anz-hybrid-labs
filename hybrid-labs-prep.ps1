@@ -106,5 +106,6 @@ $spnAppId = (Get-Content arc-server-onboarding-spn.json | ConvertFrom-Json).appI
 # Additional roles for module 7
 az role assignment create --assignee $spnAppId --scope "/subscriptions/$subscriptionId" --role "Storage Account Contributor"
 az role assignment create --assignee $spnAppId --scope "/subscriptions/$subscriptionId" --role "Resource Policy Contributor"
+az role assignment create --assignee $spnAppId --scope "/subscriptions/$subscriptionId" --role "User Access Administrator"
 
 Write-Host "All done."
